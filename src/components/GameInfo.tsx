@@ -221,16 +221,16 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
     ? `${eventLeague ? `${eventLeague.toUpperCase()} · ` : ""}${eventName}`
     : `${matchup.teamA} @ ${matchup.teamB}`;
   return (
-    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-xl p-3 space-y-3 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-xl p-2 md:p-3 space-y-2 md:space-y-3 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 transition-colors duration-300">
       <div className="flex justify-between items-start">
         <div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{gameName}</h2>
           <p className="text-slate-500 dark:text-slate-400">Hosted by <span className="font-bold text-cyan-600 dark:text-cyan-400">@{host}</span></p>
           {gameId && (
-            <div className="flex items-center gap-2 mt-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30">
-                <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-widest">Code</span>
-                <span className="font-mono font-bold text-white selection:bg-indigo-500">{gameId}</span>
+            <div className="flex items-center gap-1.5 mt-2">
+              <div className="inline-flex items-center gap-2 px-2 py-1 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30">
+                <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest">Code</span>
+                <span className="font-mono font-bold text-white text-xs selection:bg-indigo-500">{gameId}</span>
               </div>
               <button 
                 onClick={handleShare}
@@ -247,7 +247,7 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
         </div>
       </div>
 
-      <div className="text-[10px] uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 dark:border-white/5 pb-4">
+      <div className="text-[10px] uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 dark:border-white/5 pb-2 md:pb-4">
         {currentEventLabel}
         {eventDate && (
           <span className="text-[9px] font-semibold ml-2 text-slate-600 dark:text-slate-600 text-slate-400">{formatEventDate(eventDate)}</span>
@@ -255,8 +255,8 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
       </div>
 
       {scores && (
-        <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-white/10 shadow-inner">
-          <div className="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 flex items-center justify-between gap-2">
+        <div className="bg-slate-50 dark:bg-slate-950 p-2 md:p-4 rounded-xl border border-slate-200 dark:border-white/10 shadow-inner">
+          <div className="text-xs font-black text-slate-500 uppercase tracking-widest mb-2 md:mb-3 flex items-center justify-between gap-2">
             <span className="flex items-center gap-2">
               <span className={`w-1.5 h-1.5 rounded-full ${isLiveSyncActive ? "bg-red-500 animate-pulse" : "bg-slate-400"}`}></span>
               {isLiveSyncActive ? "Live Score" : "Manual Score"}
@@ -265,14 +265,14 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
                <span className="text-[9px] text-red-500 font-bold bg-red-100 dark:bg-red-500/10 px-2 py-0.5 rounded">Sync Active</span>
              )}
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 md:gap-3">
             <div>
               <div className="text-[10px] font-black text-slate-500 uppercase">{matchup.teamA.split(" ").pop()}</div>
               <input
                 type="number"
                 min={0}
                 aria-label={`${matchup.teamA} score`}
-                className={`w-full mt-1 p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 rounded-lg font-black text-pink-600 dark:text-pink-500 text-2xl focus:ring-2 focus:ring-pink-500/50 outline-none transition-all ${isLiveSyncActive ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full mt-1 p-1.5 md:p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 rounded-lg font-black text-pink-600 dark:text-pink-500 text-2xl focus:ring-2 focus:ring-pink-500/50 outline-none transition-all ${isLiveSyncActive ? "opacity-50 cursor-not-allowed" : ""}`}
                 value={teamAScore}
                 onChange={(e) => setTeamAScore(Number(e.target.value))}
                 disabled={!isAdmin || isLiveSyncActive}
@@ -284,7 +284,7 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
                 type="number"
                 min={0}
                 aria-label={`${matchup.teamB} score`}
-                className={`w-full mt-1 p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 rounded-lg font-black text-cyan-600 dark:text-cyan-500 text-2xl focus:ring-2 focus:ring-cyan-500/50 outline-none transition-all ${isLiveSyncActive ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full mt-1 p-1.5 md:p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 rounded-lg font-black text-cyan-600 dark:text-cyan-500 text-2xl focus:ring-2 focus:ring-cyan-500/50 outline-none transition-all ${isLiveSyncActive ? "opacity-50 cursor-not-allowed" : ""}`}
                 value={teamBScore}
                 onChange={(e) => setTeamBScore(Number(e.target.value))}
                 disabled={!isAdmin || isLiveSyncActive}
@@ -292,7 +292,7 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
             </div>
           </div>
           {isAdmin && onUpdateScores && !isLiveSyncActive && (
-            <div className="mt-3 space-y-2">
+            <div className="mt-2 md:mt-3 space-y-2">
               <button
                 type="button"
                 onClick={() => onUpdateScores(teamAScore, teamBScore)}
