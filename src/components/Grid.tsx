@@ -93,7 +93,7 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
         </div>
 
         {/* The Grid Wrapper */}
-        <div className="relative w-full aspect-square rounded-xl shadow-2xl bg-slate-300 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700/50 p-0.5 md:p-1">
+        <div className="relative flex-1 max-w-full aspect-square rounded-xl shadow-2xl bg-slate-300 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700/50 p-0.5 md:p-1">
           <div className="grid grid-cols-11 w-full h-full bg-slate-100 dark:bg-slate-900">
             {/* Top-left empty corner */}
             <div className="aspect-square bg-slate-200 dark:bg-slate-800 shadow-md border-b border-r border-slate-300 dark:border-white/10"></div>
