@@ -800,7 +800,7 @@ function SquaresApp() {
                     </div>
                   )}
 
-                  <div className="w-full relative rounded-2xl ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
+                  <div className="w-full relative -mt-1 rounded-2xl ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
                       
                       {/* --- NEW: QUARTER SELECTOR --- */}
                       <div className="flex gap-1 md:gap-2 border-b border-slate-200 dark:border-white/5 overflow-x-auto">
@@ -821,7 +821,7 @@ function SquaresApp() {
                       </div>
 
                       {/* Grid Area - Natural Height */}
-                      <div className="w-full p-0">
+                      <div className="w-full p-0 -mt-1">
                         <Grid 
                           rows={currentAxis.rows} 
                           cols={currentAxis.cols} 
