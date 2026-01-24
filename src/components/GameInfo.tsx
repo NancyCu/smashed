@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Trophy, DollarSign, Users, Info, ChevronRight, Share2, Trash2 } from "lucide-react";
+import { Trophy, DollarSign, Users, Info, ChevronRight, Trash2 } from "lucide-react";
 import { EspnScoreData } from "@/hooks/useEspnScores";
 
 interface GameInfoProps {
@@ -28,6 +28,8 @@ interface GameInfoProps {
   eventDate?: string;
   selectedEventId?: string;
   onSelectEvent?: (game: EspnScoreData | null) => void;
+  viewerName?: string;
+  viewerRole?: string;
 }
 
 
@@ -111,31 +113,14 @@ const LeagueIcon = ({ league }: { league?: string }) => {
   return <Trophy className="w-6 h-6 text-indigo-400" />;
 };
 
-export default function GameInfo({ gameId, gameName, host, pricePerSquare, totalPot, payouts, matchup, scores, isAdmin, onUpdateScores, onManualPayout, onDeleteGame, onScrambleGridDigits, onResetGridDigits, isScrambled, availableGames, eventName, eventLeague, eventDate, selectedEventId, onSelectEvent }: GameInfoProps) {
+export default function GameInfo({ gameName, host, pricePerSquare, totalPot, payouts, matchup, scores, isAdmin, onUpdateScores, onManualPayout, onDeleteGame, onScrambleGridDigits, onResetGridDigits, isScrambled, availableGames, eventName, eventLeague, eventDate, selectedEventId, onSelectEvent, viewerName, viewerRole }: GameInfoProps) {
   const [teamAScore, setTeamAScore] = useState(scores?.teamA ?? 0);
   const [teamBScore, setTeamBScore] = useState(scores?.teamB ?? 0);
-  const [timeUntilGame, setTimeUntilGame] = useState<number | null>(null);
 
   const [localEventId, setLocalEventId] = useState<string>(selectedEventId ?? "");
   
   // Is live sync active? (If selectedEventId is set to a specific game, we assume sync is ON)
   const isLiveSyncActive = !!selectedEventId;
-
-  // Timer for Scramble Logic
-  useEffect(() => {
-    if (!eventDate) {
-      setTimeUntilGame(null);
-      return;
-    }
-    const updateTime = () => {
-      const start = new Date(eventDate).getTime();
-      const now = Date.now();
-      setTimeUntilGame(start - now);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 5000); // Check every 5s
-    return () => clearInterval(interval);
-  }, [eventDate]);
 
   useEffect(() => {
     if (!scores) return;
@@ -147,32 +132,6 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
   useEffect(() => {
     setLocalEventId(selectedEventId ?? "");
   }, [selectedEventId]);
-
-  const handleShare = async () => {
-    if (!gameId) return;
-    
-    const joinLink = typeof window !== 'undefined' 
-      ? `${window.location.origin}/?view=join&code=${gameId}`
-      : ''; 
-      
-    const shareData = {
-      title: `Join my Squares Game: ${gameName}`,
-      text: `Join the pool! Entry: $${pricePerSquare}. Host: ${host}. Code: ${gameId}`,
-      url: joinLink,
-    };
-
-    try {
-      if (typeof navigator !== "undefined" && navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
-        // Optional: You could show a toast here, but for now simple fallback
-        alert("Game link copied to clipboard!"); 
-      }
-    } catch (err) {
-      console.error("Error sharing:", err);
-    }
-  };
 
   const { nflGames, otherGames } = useMemo(() => {
     const base = availableGames ?? [];
@@ -226,19 +185,18 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
         <div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{gameName}</h2>
           <p className="text-slate-500 dark:text-slate-400">Hosted by <span className="font-bold text-cyan-600 dark:text-cyan-400">@{host}</span></p>
-          {gameId && (
-            <div className="flex items-center gap-1.5 mt-2">
-              <div className="inline-flex items-center gap-2 px-2 py-1 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30">
-                <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest">Code</span>
-                <span className="font-mono font-bold text-white text-xs selection:bg-indigo-500">{gameId}</span>
+          {(viewerName || viewerRole) && (
+            <div className="flex items-center gap-2 mt-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30">
+                <span className="text-xs font-bold text-indigo-300 uppercase tracking-widest">
+                  {viewerName ?? "Player"}
+                </span>
+                {viewerRole && (
+                  <span className="text-[10px] font-black text-white/80 uppercase tracking-[0.2em]">
+                    {viewerRole}
+                  </span>
+                )}
               </div>
-              <button 
-                onClick={handleShare}
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/30 hover:text-white transition-colors"
-                aria-label="Share game"
-              >
-                <Share2 className="w-4 h-4" />
-              </button>
             </div>
           )}
         </div>
@@ -376,23 +334,16 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
             <span>Randomize Grid</span>
             {isScrambled ? (
               <span className="text-[10px] text-red-500 font-bold">Locked - Already Scrambled</span>
-            ) : timeUntilGame !== null && timeUntilGame > 10 * 60 * 1000 ? (
-               <span className="text-[10px] text-amber-500 font-bold">Unlocks 10m before game</span>
-            ) : timeUntilGame !== null && timeUntilGame <= 2 * 60 * 1000 ? (
-               <span className="text-[10px] text-red-500 font-bold">Locked - Auto Scramble Phase</span>
-            ) : null}
+            ) : (
+              <span className="text-[10px] text-emerald-500 font-bold">Ready to scramble</span>
+            )}
           </div>
           <div className="flex gap-2">
             {onResetGridDigits && !isScrambled && (
               <button
                 type="button"
                 onClick={onResetGridDigits}
-                disabled={timeUntilGame !== null && timeUntilGame <= 2 * 60 * 1000}
-                className={`px-3 py-1 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-white font-black text-[10px] tracking-[0.2em] transition-colors border border-slate-300 dark:border-white/10 ${
-                  (timeUntilGame !== null && timeUntilGame <= 2 * 60 * 1000) 
-                  ? "opacity-50 cursor-not-allowed" 
-                  : "hover:bg-slate-50 dark:hover:bg-slate-600"
-                }`}
+                className="px-3 py-1 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-white font-black text-[10px] tracking-[0.2em] transition-colors border border-slate-300 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-600"
               >
                 123...
               </button>
@@ -400,9 +351,9 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
             <button
               type="button"
               onClick={onScrambleGridDigits}
-              disabled={isScrambled || (timeUntilGame !== null && (timeUntilGame > 10 * 60 * 1000 || timeUntilGame <= 2 * 60 * 1000))}
+              disabled={isScrambled}
               className={`px-3 py-1 rounded-lg font-black text-[10px] tracking-[0.2em] transition-colors border ${
-                isScrambled || (timeUntilGame !== null && (timeUntilGame > 10 * 60 * 1000 || timeUntilGame <= 2 * 60 * 1000))
+                isScrambled
                   ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed"
                   : "bg-indigo-600 text-white border-indigo-500 hover:bg-indigo-500 shadow-md shadow-indigo-500/20"
               }`}
