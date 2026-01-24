@@ -716,7 +716,11 @@ function SquaresApp() {
                       <button className="flex-1 sm:flex-none px-4 py-2 bg-indigo-600 text-white rounded-full text-sm font-bold shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform">GRID</button>
                     </div>
                     <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                      <div className="text-xs font-black text-slate-500 uppercase tracking-widest hidden sm:block mr-2">Code: <span className="text-slate-700 dark:text-slate-300">{activeGame.id}</span></div>
+                      <div className="text-xs font-black text-slate-500 uppercase tracking-widest hidden sm:block mr-2">
+                        <span className="text-slate-700 dark:text-slate-300">{userName}</span>
+                        <span className="text-slate-400 dark:text-slate-500"> · </span>
+                        <span className="text-slate-600 dark:text-slate-400">{canManage ? (isAdmin ? "Admin" : "Host") : "Player"}</span>
+                      </div>
                       
                       {!isGameStarted && (
                         <>
@@ -799,7 +803,7 @@ function SquaresApp() {
                   <div className="w-full relative rounded-2xl ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
                       
                       {/* --- NEW: QUARTER SELECTOR --- */}
-                      <div className="flex p-1 md:p-2 gap-1 md:gap-2 border-b border-slate-200 dark:border-white/5 overflow-x-auto">
+                      <div className="flex gap-1 md:gap-2 border-b border-slate-200 dark:border-white/5 overflow-x-auto">
                         {(['q1', 'q2', 'q3', 'final'] as const).map((q) => (
                           <button
                             key={q}
@@ -901,6 +905,8 @@ function SquaresApp() {
                         host={activeGame.hostName}
                         pricePerSquare={settings.pricePerSquare}
                         totalPot={totalPot}
+                        viewerName={userName}
+                        viewerRole={canManage ? (isAdmin ? "Admin" : "Host") : "Player"}
                         onResetGridDigits={resetGridDigits}
                         payouts={payouts}
                         matchup={{ teamA: settings.teamA, teamB: settings.teamB }}
