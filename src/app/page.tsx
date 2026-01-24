@@ -496,9 +496,14 @@ function SquaresApp() {
   const isGameStarted = settings.isScrambled || (matchedLiveGame?.isLive ?? false);
 
   return (
-    <div className="min-h-screen bg-transparent pb-24 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+    <div
+      className={cn(
+        "bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-300",
+        currentView === "game" ? "max-h-dvh overflow-auto" : "min-h-screen pb-24"
+      )}
+    >
       {/* Header */}
-      <header className="bg-white/80 dark:bg-slate-900/50 backdrop-blur-md border-b border-slate-200 dark:border-white/5 sticky top-0 z-50 px-4 py-3 transition-colors duration-300">
+      <header className="bg-white/80 dark:bg-slate-900/50 backdrop-blur-md border-b border-slate-200 dark:border-white/5 sticky top-0 z-50 px-4 py-2 md:py-3 transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md dark:shadow-[0_0_15px_rgba(99,102,241,0.5)] ring-2 ring-indigo-500/50 rotate-[-2deg]">
@@ -703,10 +708,10 @@ function SquaresApp() {
                 <JoinGameForm onSuccess={() => setView("game")} initialGameId={initialGameCode} />
               </div>
             ) : (
-              <div className="flex flex-col lg:flex-row items-stretch lg:items-start gap-4 animate-in fade-in slide-in-from-right-4 duration-500 max-w-[2200px] mx-auto w-full">
+              <div className="flex flex-col lg:flex-row items-stretch lg:items-start gap-1 sm:gap-2 lg:gap-4 animate-in fade-in slide-in-from-right-4 duration-500 max-w-[2200px] mx-auto w-full">
                 {/* Main Grid Area - Flex Grow to take available space */}
-                <div className="flex-1 flex flex-col gap-4 w-full min-w-0 order-1">
-                  <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between mb-2">
+                <div className="flex-1 flex flex-col gap-1 sm:gap-2 md:gap-4 w-full min-w-0 order-1">
+                  <div className="flex flex-col sm:flex-row gap-1 sm:gap-3 items-start sm:items-center justify-between mb-1">
                     <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                       <button className="flex-1 sm:flex-none px-4 py-2 bg-indigo-600 text-white rounded-full text-sm font-bold shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform">GRID</button>
                     </div>
@@ -768,7 +773,7 @@ function SquaresApp() {
                   </div>
                   
                   {payoutHistory.length > 0 && (
-                    <div className="mb-2 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-amber-500/30 p-3 rounded-xl flex items-center justify-between backdrop-blur-sm transition-all">
+                    <div className="mb-1 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-amber-500/30 p-2 md:p-3 rounded-xl flex items-center justify-between backdrop-blur-sm transition-all">
                       <div className="flex items-center gap-3">
                           <div className="bg-amber-500 p-2 rounded-lg text-white shadow-lg shadow-amber-500/20">
                            <Trophy className="w-5 h-5" />
@@ -794,7 +799,7 @@ function SquaresApp() {
                   <div className="w-full relative rounded-2xl ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
                       
                       {/* --- NEW: QUARTER SELECTOR --- */}
-                      <div className="flex p-2 gap-2 border-b border-slate-200 dark:border-white/5 overflow-x-auto">
+                      <div className="flex p-1 md:p-2 gap-1 md:gap-2 border-b border-slate-200 dark:border-white/5 overflow-x-auto">
                         {(['q1', 'q2', 'q3', 'final'] as const).map((q) => (
                           <button
                             key={q}
@@ -843,7 +848,7 @@ function SquaresApp() {
                       />
                   
                       {/* Live Score Bar - Bridge the Gap */}
-                      <div className="shrink-0 w-full bg-white dark:bg-slate-900 p-4 flex flex-col md:flex-row items-center justify-between text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 gap-3 md:gap-0 transition-colors duration-300">
+                      <div className="shrink-0 w-full bg-white dark:bg-slate-900 p-2 md:p-4 flex flex-col md:flex-row items-center justify-between text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 gap-1 md:gap-0 transition-colors duration-300">
                         {/* Event Status Pill */}
                         <div className="w-full md:w-auto flex justify-center md:justify-start order-1 md:order-1">
                           <div className="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-full border border-slate-200 dark:border-white/5">

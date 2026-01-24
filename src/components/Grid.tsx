@@ -66,36 +66,35 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
   const showLogos = !isScrambled;
 
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center pt-2 pl-6 md:pt-4 md:pl-10">
+    <div className="relative w-full h-full flex flex-col items-center justify-center gap-1 pt-1">
       {/* Team B Label (Horizontal Top) - Centered above Grid */}
-      <div className="absolute top-0 left-0 right-0 pl-6 md:pl-10 flex items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none -translate-y-3/4">
-          {showLogos && teamBLogo && (
-            <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
-              <Image src={teamBLogo} alt={teamB} fill className="object-contain drop-shadow-md" />
-            </div>
-          )}
-          <div className="text-center font-black text-xl md:text-3xl text-cyan-600 dark:text-cyan-400 uppercase tracking-[0.2em] drop-shadow-sm dark:drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] whitespace-nowrap">
-            {teamB}
+      <div className="flex w-full items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
+        {showLogos && teamBLogo && (
+          <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
+            <Image src={teamBLogo} alt={teamB} fill className="object-contain drop-shadow-md" />
           </div>
+        )}
+        <div className="text-center font-black text-xl md:text-3xl text-cyan-600 dark:text-cyan-400 uppercase tracking-[0.2em] drop-shadow-sm dark:drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] whitespace-nowrap">
+          {teamB}
+        </div>
       </div>
 
-      {/* Team A Label (Vertical Left) - Centered left of Grid */}
-      <div className="absolute left-0 top-0 bottom-0 pt-6 md:pt-10 flex items-center justify-center z-30 pointer-events-none translate-x-3">
-        <div className="flex flex-col items-center gap-2 md:gap-4">
+      <div className="flex flex-row items-center justify-center gap-1 w-full">
+        {/* Team A Label (Vertical Left) - Centered left of Grid */}
+        <div className="flex w-10 md:w-12 flex-col items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
           {showLogos && teamALogo && (
-              <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
-                <Image src={teamALogo} alt={teamA} fill className="object-contain drop-shadow-md" />
-              </div>
+            <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
+              <Image src={teamALogo} alt={teamA} fill className="object-contain drop-shadow-md" />
+            </div>
           )}
           <div className="[writing-mode:vertical-lr] rotate-180 font-black text-xl md:text-3xl text-pink-600 dark:text-pink-500 uppercase tracking-[0.2em] drop-shadow-[0_0_10px_rgba(236,72,153,0.5)] whitespace-nowrap">
             {teamA}
           </div>
         </div>
-      </div>
 
-      {/* The Grid Wrapper */}
-      <div className="relative w-full aspect-square rounded-xl shadow-2xl bg-slate-300 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700/50 p-0.5 md:p-1">
-        <div className="grid grid-cols-11 w-full h-full bg-slate-100 dark:bg-slate-900">
+        {/* The Grid Wrapper */}
+        <div className="relative flex-1 max-w-full aspect-square rounded-xl shadow-2xl bg-slate-300 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700/50 p-0.5 md:p-1">
+          <div className="grid grid-cols-11 w-full h-full bg-slate-100 dark:bg-slate-900">
             {/* Top-left empty corner */}
             <div className="aspect-square bg-slate-200 dark:bg-slate-800 shadow-md border-b border-r border-slate-300 dark:border-white/10"></div>
 
@@ -198,6 +197,7 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
             ))}
           </div>
         </div>
+      </div>
     </div>
   );
 }

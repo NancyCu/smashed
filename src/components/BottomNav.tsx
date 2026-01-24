@@ -30,7 +30,7 @@ export default function BottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 md:left-1/2 md:right-auto md:-translate-x-1/2 md:bottom-6 md:w-auto md:rounded-2xl md:border md:border-slate-200 md:dark:border-white/10 md:shadow-2xl md:min-w-[400px] bg-slate-100/80 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-white/5 md:border-t-0 px-6 py-3 md:px-8 md:py-4 z-50 transition-all duration-300">
+    <nav className="fixed bottom-0 left-0 right-0 md:left-1/2 md:right-auto md:-translate-x-1/2 md:bottom-6 md:w-auto md:rounded-2xl md:border md:border-slate-200 md:dark:border-white/10 md:shadow-2xl md:min-w-[400px] bg-slate-100/80 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-white/5 md:border-t-0 px-6 pt-0 pb-2 md:px-8 md:py-4 z-50 transition-all duration-300">
       <div className="max-w-lg mx-auto md:w-full flex justify-between items-center gap-2 md:gap-8">
         
         {/* Home */}
