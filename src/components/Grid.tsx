@@ -66,7 +66,7 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
   const showLogos = !isScrambled;
 
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center gap-1 pt-1">
+    <div className="relative w-full h-full flex flex-col items-center justify-center gap-0 pt-0">
       {/* Team B Label (Horizontal Top) - Centered above Grid */}
       <div className="flex w-full items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
         {showLogos && teamBLogo && (
