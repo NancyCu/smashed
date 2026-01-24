@@ -250,7 +250,7 @@ export default function GameInfo({ gameId, gameName, host, pricePerSquare, total
       <div className="text-[10px] uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 dark:border-white/5 pb-2 md:pb-4">
         {currentEventLabel}
         {eventDate && (
-          <span className="text-[9px] font-semibold ml-2 text-slate-600 dark:text-slate-600 text-slate-400">{formatEventDate(eventDate)}</span>
+          <span className="text-[9px] font-semibold ml-2 text-slate-600 dark:text-slate-400">{formatEventDate(eventDate)}</span>
         )}
       </div>
 
