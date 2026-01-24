@@ -499,7 +499,7 @@ function SquaresApp() {
     <div
       className={cn(
         "bg-transparent text-slate-800 dark:text-slate-200 transition-colors duration-300",
-        currentView === "game" ? "h-dvh overflow-hidden" : "min-h-screen pb-24"
+        currentView === "game" ? "max-h-dvh overflow-auto" : "min-h-screen pb-24"
       )}
     >
       {/* Header */}
