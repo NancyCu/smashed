@@ -81,7 +81,7 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
 
       <div className="flex flex-row items-center justify-center gap-1 w-full">
         {/* Team A Label (Vertical Left) - Centered left of Grid */}
-        <div className="flex w-8 flex-col items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
+        <div className="flex w-10 md:w-12 flex-col items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
           {showLogos && teamALogo && (
             <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
               <Image src={teamALogo} alt={teamA} fill className="object-contain drop-shadow-md" />
