@@ -67,36 +67,21 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
 
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center gap-0 pt-0">
-      {/* Team B Label (Horizontal Top) - Centered above Grid */}
-      <div className="flex w-full items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
-        {showLogos && teamBLogo && (
-          <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
-            <Image src={teamBLogo} alt={teamB} fill className="object-contain drop-shadow-md" />
-          </div>
-        )}
-        <div className="text-center font-black text-xl md:text-3xl text-cyan-600 dark:text-cyan-400 uppercase tracking-[0.2em] drop-shadow-sm dark:drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] whitespace-nowrap">
+      {/* The Grid Wrapper */}
+      <div className="relative w-full max-w-full aspect-square rounded-xl shadow-2xl bg-slate-300 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700/50 p-0.5 md:p-1 overflow-visible">
+        {/* Team B Label (Horizontal Top) */}
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none text-center whitespace-nowrap font-black text-xl md:text-3xl text-cyan-600 dark:text-cyan-400 uppercase tracking-[0.2em] drop-shadow-sm dark:drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
           {teamB}
         </div>
-      </div>
 
-      <div className="flex flex-row items-center justify-center gap-1 w-full">
-        {/* Team A Label (Vertical Left) - Centered left of Grid */}
-        <div className="flex w-10 md:w-12 flex-col items-center justify-center gap-2 md:gap-4 z-30 pointer-events-none">
-          {showLogos && teamALogo && (
-            <div className="relative w-6 h-6 md:w-8 md:h-8 shrink-0">
-              <Image src={teamALogo} alt={teamA} fill className="object-contain drop-shadow-md" />
-            </div>
-          )}
-          <div className="[writing-mode:vertical-lr] rotate-180 font-black text-xl md:text-3xl text-pink-600 dark:text-pink-500 uppercase tracking-[0.2em] drop-shadow-[0_0_10px_rgba(236,72,153,0.5)] whitespace-nowrap">
-            {teamA}
-          </div>
+        {/* Team A Label (Vertical Left) */}
+        <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[270deg] z-30 pointer-events-none text-center whitespace-nowrap font-black text-xl md:text-3xl text-pink-600 dark:text-pink-500 uppercase tracking-[0.2em] drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]">
+          {teamA}
         </div>
 
-        {/* The Grid Wrapper */}
-        <div className="relative flex-1 max-w-full aspect-square rounded-xl shadow-2xl bg-slate-300 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-700/50 p-0.5 md:p-1">
-          <div className="grid grid-cols-11 w-full h-full bg-slate-100 dark:bg-slate-900">
-            {/* Top-left empty corner */}
-            <div className="aspect-square bg-slate-200 dark:bg-slate-800 shadow-md border-b border-r border-slate-300 dark:border-white/10"></div>
+        <div className="grid grid-cols-11 w-full h-full bg-slate-100 dark:bg-slate-900">
+          {/* Top-left empty corner */}
+          <div className="aspect-square bg-slate-200 dark:bg-slate-800 shadow-md border-b border-r border-slate-300 dark:border-white/10"></div>
 
             {/* Column Headers (0-9) */}
             {cols.map((num) => (
@@ -195,7 +180,6 @@ export default function Grid({ rows, cols, squares, onSquareClick, teamA, teamB,
                 })}
               </React.Fragment>
             ))}
-          </div>
         </div>
       </div>
     </div>
