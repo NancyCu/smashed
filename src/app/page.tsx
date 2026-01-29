@@ -421,7 +421,7 @@ function SquaresApp() {
       eventDate: activeGame?.settings?.eventDate
     });
 
-  }, [matchedLiveGame, isHost, settings.espnLeague, settings.payoutFrequency, settings.rows, settings.cols, scores, squares, payoutHistory, totalPot, logPayout, activeGame]);
+  }, [matchedLiveGame, isHost, settings.espnLeague, settings.payoutFrequency, settings.rows, settings.cols, settings.axisValues, scores, squares, payoutHistory, totalPot, logPayout, activeGame]);
   
   // Show Payout Notification (Toast)
   useEffect(() => {
