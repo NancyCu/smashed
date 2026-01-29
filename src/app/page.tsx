@@ -357,10 +357,21 @@ function SquaresApp() {
     if (!triggerId) return;
     if (payoutHistory.some(p => p.id === triggerId)) return;
 
+    const axisValues = (settings as any).axisValues as GameAxisData | undefined;
+    const baseAxis = { rows: settings.rows, cols: settings.cols };
+    const axisForTrigger = (() => {
+      if (!axisValues) return baseAxis;
+      if (triggerLabel.includes("Final") || period >= 4) {
+        return axisValues.final ?? baseAxis;
+      }
+      const quarterKey = `q${Math.max(1, Math.min(3, period))}` as keyof GameAxisData;
+      return axisValues[quarterKey] ?? baseAxis;
+    })();
+
     const rowDigit = ((scores.teamA % 10) + 10) % 10;
     const colDigit = ((scores.teamB % 10) + 10) % 10;
-    const rowIndex = currentAxis.rows.indexOf(rowDigit);
-    const colIndex = currentAxis.cols.indexOf(colDigit);
+    const rowIndex = axisForTrigger.rows.indexOf(rowDigit);
+    const colIndex = axisForTrigger.cols.indexOf(colDigit);
 
     if (rowIndex < 0 || colIndex < 0) return;
 
@@ -410,7 +421,7 @@ function SquaresApp() {
       eventDate: activeGame?.settings?.eventDate
     });
 
-  }, [matchedLiveGame, isHost, settings.payoutFrequency, scores, squares, currentAxis, payoutHistory, totalPot, logPayout, activeGame]);
+  }, [matchedLiveGame, isHost, settings.espnLeague, settings.payoutFrequency, settings.rows, settings.cols, scores, squares, payoutHistory, totalPot, logPayout, activeGame]);
   
   // Show Payout Notification (Toast)
   useEffect(() => {
